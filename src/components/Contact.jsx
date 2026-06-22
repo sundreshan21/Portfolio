@@ -31,8 +31,17 @@ export default function Contact() {
     ev.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
-    setErrors({}); setSent(true)
-    setTimeout(() => { setSent(false); setForm({ name: '', email: '', message: '' }) }, 4500)
+    setErrors({})
+    const subject = encodeURIComponent(`Portfolio message from ${form.name}`)
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
+    )
+    window.location.href = `mailto:sundreshan21@gmail.com?subject=${subject}&body=${body}`
+    setSent(true)
+    setTimeout(() => {
+      setSent(false)
+      setForm({ name: '', email: '', message: '' })
+    }, 4500)
   }
 
   const inputStyle = {
